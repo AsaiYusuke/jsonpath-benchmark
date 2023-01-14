@@ -1,0 +1,23 @@
+name: Benchmark JSONPath
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Benchmark `$.store.book[0].price`
+        run: go test -v -benchmem -bench Benchmark_threeLevelsWithIndex
+
+      - name: Benchmark `$..book[?(@.price > $.store.bicycle.price)]`
+        run: go test -v -benchmem -bench Benchmark_recursiveDescentWithFilter
