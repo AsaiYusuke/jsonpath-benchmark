@@ -3,15 +3,15 @@
 [![Benchmark JSONPath](https://github.com/AsaiYusuke/jsonpath-benchmark/actions/workflows/build.yml/badge.svg)](https://github.com/AsaiYusuke/jsonpath-benchmark/actions/workflows/build.yml)
 
 I benchmarked two JSONPaths using several libraries for the Go language.
-Results can be checked via Github actions.
+Results can be viewed through Github actions.
 
-What is being measured is the cost per job for a job that loops a lot after all the prep work done.
+The focus of the measurement is the cost per job for a task that involves a significant amount of looping after all the initial preparations are complete.
 
-There was a performance differences.
-But if the number of queries is little, there will not be a big difference between any of them.
+There were notable performance differences.
+However, if the number of queries is limited, there will not be a significant variation between any of them.
 
-Also, the results will vary depending on the data entered.
-So this benchmark is for information only and should be re-measured at every time.
+Additionally, the results may vary depending on the input data.
+Therefore, this benchmark should be considered for informational purposes only and re-evaluated at regular intervals.
 
 - [AsaiYusuke/JSONPath](https://github.com/AsaiYusuke/jsonpath)
 - [ohler55/OjG](https://github.com/ohler55/ojg)
@@ -21,20 +21,19 @@ So this benchmark is for information only and should be re-measured at every tim
 - [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
 - [PaesslerAG/JSONPath](https://github.com/PaesslerAG/jsonpath)
 
-## JSONPath for comparison with more libraries
+## Comparing across all libraries
 
 ```
 JSONPath : $.store.book[0].price
 ```
 
-This is the result of a JSONPath that all libraries were able to process.
-oliveagle/JsonPath is fastest. My library is 2nd.
+The following is the outcome of a JSONPath that was processed by all libraries.
+The library "oliveagle/JsonPath" performed the fastest, while my own library placed second.
 
-## A slightly complex JSONPath
+## Comparing with a slightly complex syntax
 
 ```
 JSONPath : $..book[?(@.price > $.store.bicycle.price)]
 ```
 
-Libraries that can handle complex syntax limited to a few.
-Among these libraries, my library is fastest.
+Among the limited number of libraries capable of handling complex syntax, my library performed the fastest.
