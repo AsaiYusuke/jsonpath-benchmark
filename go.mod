@@ -3,7 +3,7 @@ module github.com/AsaiYusuke/jsonpath_benchmark
 go 1.19
 
 require (
-	github.com/AsaiYusuke/jsonpath v1.4.1-0.20230113094652-4da546264c6d
+	github.com/AsaiYusuke/jsonpath v1.5.0
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/bhmj/jsonslice v1.1.2
 	github.com/ohler55/ojg v1.17.2
