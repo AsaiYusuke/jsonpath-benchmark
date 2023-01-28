@@ -2,9 +2,17 @@ name: Benchmark JSONPath
 
 on:
   pull_request:
+    paths:
+      - 'go.mod'
+      - 'go.sum'
+      - '**.go'
   push:
     branches:
       - main
+    paths:
+      - 'go.mod'
+      - 'go.sum'
+      - '**.go'
 
 jobs:
   build:
@@ -36,3 +44,4 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: 'README.md'
+          message: 'update README for ${{ github.sha }}'
