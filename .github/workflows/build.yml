@@ -6,13 +6,6 @@ on:
       - 'go.mod'
       - 'go.sum'
       - '**.go'
-  push:
-    branches:
-      - main
-    paths:
-      - 'go.mod'
-      - 'go.sum'
-      - '**.go'
 
 jobs:
   build:
