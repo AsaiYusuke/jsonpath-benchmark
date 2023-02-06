@@ -34,16 +34,16 @@ The library "oliveagle/JsonPath" performed the fastest, while my own library pla
 goos: linux
 goarch: amd64
 pkg: github.com/AsaiYusuke/jsonpath_benchmark
-cpu: Intel(R) Xeon(R) Platinum 8171M CPU @ 2.60GHz
-Benchmark_threeLevelsWithIndex_oliveagle_JsonPath-2          	12954456	        91.89 ns/op	       0 B/op	       0 allocs/op
-Benchmark_threeLevelsWithIndex_AsaiYusuke_JSONPath-2         	 5670292	       218.0 ns/op	      48 B/op	       3 allocs/op
-Benchmark_threeLevelsWithIndex_ohler55_OjG_jp-2              	 1770486	       680.8 ns/op	    1040 B/op	       2 allocs/op
-Benchmark_threeLevelsWithIndex_PaesslerAG_JSONPath-2         	 1681866	       709.9 ns/op	     208 B/op	       7 allocs/op
-Benchmark_threeLevelsWithIndex_vmware_labs_YAML_JSONPath-2   	  772999	      1409 ns/op	     400 B/op	      25 allocs/op
-Benchmark_threeLevelsWithIndex_bhmj_JSON_Slice-2             	  551628	      2158 ns/op	      24 B/op	       1 allocs/op
-Benchmark_threeLevelsWithIndex_Spyzhov_Abstract_JSON-2       	  378636	      3009 ns/op	     759 B/op	      35 allocs/op
+cpu: Intel(R) Xeon(R) CPU E5-2673 v3 @ 2.40GHz
+Benchmark_threeLevelsWithIndex_oliveagle_JsonPath-2          	11800214	        99.29 ns/op	       0 B/op	       0 allocs/op
+Benchmark_threeLevelsWithIndex_AsaiYusuke_JSONPath-2         	 5264698	       233.0 ns/op	      48 B/op	       3 allocs/op
+Benchmark_threeLevelsWithIndex_ohler55_OjG_jp-2              	 1611006	       726.0 ns/op	    1040 B/op	       2 allocs/op
+Benchmark_threeLevelsWithIndex_PaesslerAG_JSONPath-2         	 1578471	       766.9 ns/op	     208 B/op	       7 allocs/op
+Benchmark_threeLevelsWithIndex_vmware_labs_YAML_JSONPath-2   	  725925	      1439 ns/op	     400 B/op	      25 allocs/op
+Benchmark_threeLevelsWithIndex_bhmj_JSON_Slice-2             	  530448	      2171 ns/op	      24 B/op	       1 allocs/op
+Benchmark_threeLevelsWithIndex_Spyzhov_Abstract_JSON-2       	  387250	      3067 ns/op	     759 B/op	      35 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	10.067s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	10.119s
 
 ```
 
@@ -59,13 +59,13 @@ Among the limited number of libraries capable of handling complex syntax, my lib
 goos: linux
 goarch: amd64
 pkg: github.com/AsaiYusuke/jsonpath_benchmark
-cpu: Intel(R) Xeon(R) Platinum 8171M CPU @ 2.60GHz
-Benchmark_recursiveDescentWithFilter_AsaiYusuke_JSONPath-2         	  356809	      3381 ns/op	     464 B/op	      17 allocs/op
-Benchmark_recursiveDescentWithFilter_ohler55_OjG_jp-2              	  211360	      5243 ns/op	    5288 B/op	      21 allocs/op
-Benchmark_recursiveDescentWithFilter_vmware_labs_YAML_JSONPath-2   	  153553	      7756 ns/op	    4528 B/op	     141 allocs/op
-Benchmark_recursiveDescentWithFilter_bhmj_JSON_Slice-2             	   44661	     26826 ns/op	    1816 B/op	      43 allocs/op
-Benchmark_recursiveDescentWithFilter_Spyzhov_Abstract_JSON-2       	   39466	     30697 ns/op	    7160 B/op	     279 allocs/op
+cpu: Intel(R) Xeon(R) CPU E5-2673 v3 @ 2.40GHz
+Benchmark_recursiveDescentWithFilter_AsaiYusuke_JSONPath-2         	  340539	      3465 ns/op	     464 B/op	      17 allocs/op
+Benchmark_recursiveDescentWithFilter_ohler55_OjG_jp-2              	  209902	      5728 ns/op	    5288 B/op	      21 allocs/op
+Benchmark_recursiveDescentWithFilter_vmware_labs_YAML_JSONPath-2   	  135086	      8010 ns/op	    4528 B/op	     141 allocs/op
+Benchmark_recursiveDescentWithFilter_bhmj_JSON_Slice-2             	   49237	     25192 ns/op	    1816 B/op	      43 allocs/op
+Benchmark_recursiveDescentWithFilter_Spyzhov_Abstract_JSON-2       	   37988	     31406 ns/op	    7160 B/op	     279 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.688s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	7.564s
 
 ```
