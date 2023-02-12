@@ -6,6 +6,7 @@ on:
       - 'go.mod'
       - 'go.sum'
       - '**.go'
+      - '.github/workflows/*.yml'
 
 jobs:
   build:
@@ -28,10 +29,10 @@ jobs:
         run: go build -v ./...
 
       - name: Benchmark `$.store.book[0].price`
-        run: go test -benchmem -bench Benchmark_threeLevelsWithIndex > benchmark_threeLevelsWithIndex_test.result.txt
+        run: go test -benchmem -bench Benchmark1 > benchmark_threeLevelsWithIndex_test.result.txt
 
       - name: Benchmark `$..book[?(@.price > $.store.bicycle.price)]`
-        run: go test -benchmem -bench Benchmark_recursiveDescentWithFilter > benchmark_recursiveDescentWithFilter_test.result.txt
+        run: go test -benchmem -bench Benchmark2 > benchmark_recursiveDescentWithFilter_test.result.txt
 
       - name: Update README
         run: j2 -o README.md assets/README.t

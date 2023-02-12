@@ -31,8 +31,19 @@ The following is the outcome of a JSONPath that was processed by all libraries.
 The library "oliveagle/JsonPath" performed the fastest, while my own library placed second.
 
 ```
+goos: linux
+goarch: amd64
+pkg: github.com/AsaiYusuke/jsonpath_benchmark
+cpu: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
+Benchmark1_oliveagle_JsonPath-2          	15430345	        76.71 ns/op	       0 B/op	       0 allocs/op
+Benchmark1_AsaiYusuke_JSONPath-2         	 7270764	       167.6 ns/op	      48 B/op	       3 allocs/op
+Benchmark1_ohler55_OjG_jp-2              	 1864442	       640.1 ns/op	    1040 B/op	       2 allocs/op
+Benchmark1_PaesslerAG_JSONPath-2         	 2046974	       584.8 ns/op	     208 B/op	       7 allocs/op
+Benchmark1_vmware_labs_YAML_JSONPath-2   	  850020	      1210 ns/op	     400 B/op	      25 allocs/op
+Benchmark1_bhmj_JSON_Slice-2             	  647961	      1825 ns/op	      24 B/op	       1 allocs/op
+Benchmark1_Spyzhov_Abstract_JSON-2       	  437499	      2529 ns/op	     759 B/op	      35 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	0.003s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	9.696s
 
 ```
 
@@ -45,7 +56,16 @@ JSONPath : $..book[?(@.price > $.store.bicycle.price)]
 Among the limited number of libraries capable of handling complex syntax, my library performed the fastest.
 
 ```
+goos: linux
+goarch: amd64
+pkg: github.com/AsaiYusuke/jsonpath_benchmark
+cpu: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
+Benchmark2_AsaiYusuke_JSONPath-2         	  397695	      2773 ns/op	     464 B/op	      17 allocs/op
+Benchmark2_ohler55_OjG_jp-2              	  233516	      5649 ns/op	    5288 B/op	      21 allocs/op
+Benchmark2_vmware_labs_YAML_JSONPath-2   	  170596	      6928 ns/op	    4528 B/op	     141 allocs/op
+Benchmark2_bhmj_JSON_Slice-2             	   51678	     23196 ns/op	    1816 B/op	      43 allocs/op
+Benchmark2_Spyzhov_Abstract_JSON-2       	   45547	     26073 ns/op	    7160 B/op	     279 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	0.012s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.668s
 
 ```
