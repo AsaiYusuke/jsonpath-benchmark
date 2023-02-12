@@ -44,7 +44,6 @@ Benchmark1_bhmj_JSON_Slice-2             	  542078	      2212 ns/op	      24 B/o
 Benchmark1_Spyzhov_Abstract_JSON-2       	  381447	      3109 ns/op	     759 B/op	      35 allocs/op
 PASS
 ok  	github.com/AsaiYusuke/jsonpath_benchmark	11.306s
-
 ```
 
 ## Comparing with a slightly complex syntax
@@ -67,5 +66,4 @@ Benchmark2_bhmj_JSON_Slice-2             	   46861	     25191 ns/op	    1816 B/o
 Benchmark2_Spyzhov_Abstract_JSON-2       	   36553	     33073 ns/op	    7160 B/op	     279 allocs/op
 PASS
 ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.639s
-
 ```
