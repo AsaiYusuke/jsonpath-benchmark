@@ -34,16 +34,16 @@ The library "oliveagle/JsonPath" performed the fastest, while my own library pla
 goos: linux
 goarch: amd64
 pkg: github.com/AsaiYusuke/jsonpath_benchmark
-cpu: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
-Benchmark1_oliveagle_JsonPath-2          	15623661	        76.32 ns/op	       0 B/op	       0 allocs/op
-Benchmark1_AsaiYusuke_JSONPath-2         	 9055615	       131.9 ns/op	      24 B/op	       2 allocs/op
-Benchmark1_ohler55_OjG_jp-2              	 2161128	       557.7 ns/op	    1040 B/op	       2 allocs/op
-Benchmark1_PaesslerAG_JSONPath-2         	 2147786	       559.0 ns/op	     208 B/op	       7 allocs/op
-Benchmark1_vmware_labs_YAML_JSONPath-2   	  901165	      1161 ns/op	     400 B/op	      25 allocs/op
-Benchmark1_bhmj_JSON_Slice-2             	  648838	      1840 ns/op	      24 B/op	       1 allocs/op
-Benchmark1_Spyzhov_Abstract_JSON-2       	  459750	      2455 ns/op	     760 B/op	      35 allocs/op
+cpu: Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz
+Benchmark1_oliveagle_JsonPath-2          	15442083	        77.12 ns/op	       0 B/op	       0 allocs/op
+Benchmark1_AsaiYusuke_JSONPath-2         	 8103325	       147.5 ns/op	      24 B/op	       2 allocs/op
+Benchmark1_ohler55_OjG_jp-2              	 2061730	       574.7 ns/op	    1040 B/op	       2 allocs/op
+Benchmark1_PaesslerAG_JSONPath-2         	 2024485	       593.4 ns/op	     208 B/op	       7 allocs/op
+Benchmark1_vmware_labs_YAML_JSONPath-2   	  883443	      1175 ns/op	     400 B/op	      25 allocs/op
+Benchmark1_bhmj_JSON_Slice-2             	  627874	      1910 ns/op	      24 B/op	       1 allocs/op
+Benchmark1_Spyzhov_Abstract_JSON-2       	  450144	      2498 ns/op	     760 B/op	      35 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	9.580s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	9.634s
 
 ```
 
@@ -59,13 +59,13 @@ Among the limited number of libraries capable of handling complex syntax, my lib
 goos: linux
 goarch: amd64
 pkg: github.com/AsaiYusuke/jsonpath_benchmark
-cpu: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
-Benchmark2_AsaiYusuke_JSONPath-2         	  493333	      2410 ns/op	     240 B/op	       9 allocs/op
-Benchmark2_ohler55_OjG_jp-2              	  266007	      4987 ns/op	    5288 B/op	      21 allocs/op
-Benchmark2_vmware_labs_YAML_JSONPath-2   	  179964	      6482 ns/op	    4528 B/op	     141 allocs/op
-Benchmark2_bhmj_JSON_Slice-2             	   55285	     21533 ns/op	    1816 B/op	      43 allocs/op
-Benchmark2_Spyzhov_Abstract_JSON-2       	   46104	     25183 ns/op	    7160 B/op	     279 allocs/op
+cpu: Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz
+Benchmark2_AsaiYusuke_JSONPath-2         	  490465	      2436 ns/op	     240 B/op	       9 allocs/op
+Benchmark2_ohler55_OjG_jp-2              	  260330	      4377 ns/op	    5288 B/op	      21 allocs/op
+Benchmark2_vmware_labs_YAML_JSONPath-2   	  180181	      6527 ns/op	    4528 B/op	     141 allocs/op
+Benchmark2_bhmj_JSON_Slice-2             	   57259	     20730 ns/op	    1816 B/op	      43 allocs/op
+Benchmark2_Spyzhov_Abstract_JSON-2       	   45349	     25644 ns/op	    7160 B/op	     279 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.674s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.499s
 
 ```
