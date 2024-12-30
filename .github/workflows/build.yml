@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install requirements
-        run: pip install j2cli
+        run: pip install jinjanator
 
       - name: Set up Go
         uses: actions/setup-go@v3
@@ -35,7 +35,7 @@ jobs:
         run: go test -benchmem -bench Benchmark2 > benchmark_recursiveDescentWithFilter_test.result.txt
 
       - name: Update README
-        run: j2 -o README.md assets/README.t
+        run: jinjanate --output-file README.md assets/README.t
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
