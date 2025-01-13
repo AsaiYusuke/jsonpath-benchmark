@@ -46,15 +46,15 @@ goos: linux
 goarch: amd64
 pkg: github.com/AsaiYusuke/jsonpath_benchmark
 cpu: AMD EPYC 7763 64-Core Processor                
-Benchmark1_oliveagle_JsonPath-4          	19118167	        63.72 ns/op	       0 B/op	       0 allocs/op
-Benchmark1_AsaiYusuke_JSONPath-4         	 8535836	       122.8 ns/op	      24 B/op	       2 allocs/op
-Benchmark1_ohler55_OjG_jp-4              	 3072985	       397.1 ns/op	    1040 B/op	       2 allocs/op
-Benchmark1_PaesslerAG_JSONPath-4         	 2654620	       457.3 ns/op	     208 B/op	       7 allocs/op
-Benchmark1_vmware_labs_YAML_JSONPath-4   	 1302009	       915.4 ns/op	     400 B/op	      25 allocs/op
-Benchmark1_bhmj_JSON_Slice-4             	  814838	      1442 ns/op	      24 B/op	       1 allocs/op
-Benchmark1_Spyzhov_Abstract_JSON-4       	  595665	      1868 ns/op	     760 B/op	      35 allocs/op
+Benchmark1_oliveagle_JsonPath-4          	19014733	        62.84 ns/op	       0 B/op	       0 allocs/op
+Benchmark1_AsaiYusuke_JSONPath-4         	 9751818	       122.2 ns/op	      24 B/op	       2 allocs/op
+Benchmark1_ohler55_OjG_jp-4              	 3093003	       387.8 ns/op	    1040 B/op	       2 allocs/op
+Benchmark1_PaesslerAG_JSONPath-4         	 2648094	       457.5 ns/op	     208 B/op	       7 allocs/op
+Benchmark1_vmware_labs_YAML_JSONPath-4   	 1302322	       944.7 ns/op	     400 B/op	      25 allocs/op
+Benchmark1_bhmj_JSON_Slice-4             	  823738	      1448 ns/op	      24 B/op	       1 allocs/op
+Benchmark1_Spyzhov_Abstract_JSON-4       	  592915	      1877 ns/op	     760 B/op	      35 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	10.228s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	10.360s
 
 ```
 
@@ -76,13 +76,13 @@ goos: linux
 goarch: amd64
 pkg: github.com/AsaiYusuke/jsonpath_benchmark
 cpu: AMD EPYC 7763 64-Core Processor                
-Benchmark2_AsaiYusuke_JSONPath-4         	  655096	      1832 ns/op	     240 B/op	       9 allocs/op
-Benchmark2_ohler55_OjG_jp-4              	  294267	      3640 ns/op	    5368 B/op	      25 allocs/op
-Benchmark2_vmware_labs_YAML_JSONPath-4   	  233802	      4913 ns/op	    4528 B/op	     141 allocs/op
-Benchmark2_bhmj_JSON_Slice-4             	   70894	     16851 ns/op	    1816 B/op	      43 allocs/op
-Benchmark2_Spyzhov_Abstract_JSON-4       	   57480	     19450 ns/op	    7160 B/op	     279 allocs/op
+Benchmark2_AsaiYusuke_JSONPath-4         	  621267	      1800 ns/op	     240 B/op	       9 allocs/op
+Benchmark2_ohler55_OjG_jp-4              	  309801	      3672 ns/op	    5368 B/op	      25 allocs/op
+Benchmark2_vmware_labs_YAML_JSONPath-4   	  238503	      4944 ns/op	    4528 B/op	     141 allocs/op
+Benchmark2_bhmj_JSON_Slice-4             	   70624	     16855 ns/op	    1816 B/op	      43 allocs/op
+Benchmark2_Spyzhov_Abstract_JSON-4       	   61164	     19394 ns/op	    7160 B/op	     279 allocs/op
 PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.241s
+ok  	github.com/AsaiYusuke/jsonpath_benchmark	6.305s
 
 ```
 
