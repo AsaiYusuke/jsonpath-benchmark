@@ -22,8 +22,7 @@ func Execute_ohler55_OjG_jp(b *testing.B, srcJSON string, jsonPath string) {
 		return
 	}
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		x.Get(obj)
 	}
 }

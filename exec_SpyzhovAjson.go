@@ -13,8 +13,7 @@ func Execute_Spyzhov_Abstract_JSON(b *testing.B, srcJSON string, jsonPath string
 
 	root, _ := ajson.Unmarshal(json)
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := root.JSONPath(jsonPath); err != nil {
 			b.Skip(err)
 			return
