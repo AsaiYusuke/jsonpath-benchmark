@@ -22,8 +22,7 @@ func Execute_vmware_labs_YAML_JSONPath(b *testing.B, srcJSON string, jsonPath st
 		return
 	}
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := path.Find(&n); err != nil {
 			b.Skip(err)
 			return

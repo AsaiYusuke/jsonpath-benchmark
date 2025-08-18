@@ -11,7 +11,7 @@ import (
 func Execute_PaesslerAG_JSONPath(b *testing.B, srcJSON string, jsonPath string) {
 	b.Helper()
 
-	var src interface{}
+	var src any
 	if err := json.Unmarshal([]byte(srcJSON), &src); err != nil {
 		b.Skip(err)
 		return
@@ -23,8 +23,7 @@ func Execute_PaesslerAG_JSONPath(b *testing.B, srcJSON string, jsonPath string) 
 		return
 	}
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := eval(context.Background(), src); err != nil {
 			b.Skip(err)
 			return
