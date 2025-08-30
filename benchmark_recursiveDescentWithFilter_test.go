@@ -6,6 +6,10 @@ import (
 
 var jsonPath_recursiveDescentWithFilter string = `$..book[?(@.price > $.store.bicycle.price)]`
 
+func Benchmark2_AsaiYusuke_JSONPath_reuseBuffer(b *testing.B) {
+	Execute_AsaiYusuke_JSONPath_reuseBuffer(b, srcJSON, jsonPath_recursiveDescentWithFilter)
+}
+
 func Benchmark2_AsaiYusuke_JSONPath(b *testing.B) {
 	Execute_AsaiYusuke_JSONPath(b, srcJSON, jsonPath_recursiveDescentWithFilter)
 }

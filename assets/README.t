@@ -2,19 +2,19 @@
 
 [![Benchmark JSONPath](https://github.com/AsaiYusuke/jsonpath-benchmark/actions/workflows/build.yml/badge.svg)](https://github.com/AsaiYusuke/jsonpath-benchmark/actions/workflows/build.yml)
 
-This project provides a comprehensive benchmark comparing multiple JSONPath libraries implemented in the Go programming language.
-It aims to evaluate performance under specific scenarios and offer insights for developers choosing an appropriate library for their use case.
+This project benchmarks multiple JSONPath libraries written in Go.
+It evaluates performance in specific scenarios and offers guidance for selecting an appropriate library.
 
 ## Overview
 
-Results are generated using GitHub Actions to ensure consistency and automation.
+Results are generated via GitHub Actions for consistency and automation.
 
-The focus of the benchmark is on the cost per operation after the initial setup is complete.
-This means that preparatory steps, such as parsing or preloading data, are excluded from the measurements.
-Instead, the benchmark emphasizes scenarios involving intensive looping or query execution within the main operation.
+The benchmark focuses on the per-operation cost after initial setup is complete.
+Preparatory steps, such as parsing or preloading data, are excluded from the measurements.
+Instead, it emphasizes scenarios with intensive looping or query execution within the main operation.
 
-The results may vary depending on several factors, such as the structure of the input data, the complexity of the JSONPath queries, and the specific runtime environment.
-For this reason, these benchmarks should be considered as a general reference and re-evaluated periodically.
+Results may vary with factors such as input structure, query complexity, and runtime environment.
+Treat these benchmarks as a general reference and re-evaluate them periodically.
 
 ## Libraries Benchmarked
 
@@ -38,8 +38,8 @@ $.store.book[0].price
 
 Performance Summary:
 
-This query was supported by all libraries included in the benchmark, enabling a direct performance comparison across all of them.
-The fastest performance was achieved by `oliveagle/JsonPath`, with my library ranking second.
+All libraries support this query, enabling a direct performance comparison across them.
+With buffer reuse enabled, AsaiYusuke/JSONPath is the fastest; when allocating a new buffer per operation, it ranks second.
 
 ``` bash
 {% include 'benchmark_threeLevelsWithIndex_test.result.txt' %}
@@ -55,8 +55,8 @@ $..book[?(@.price > $.store.bicycle.price)]
 
 Performance Summary:
 
-This query involves more complex syntax, and only a subset of the libraries were able to process it.
-Among these, my library demonstrated the best performance.
+This query uses more complex syntax, and only a subset of libraries could process it.
+Among them, AsaiYusuke/JSONPath delivered the best performance.
 
 ``` bash
 {% include 'benchmark_recursiveDescentWithFilter_test.result.txt' %}
@@ -66,4 +66,4 @@ Among these, my library demonstrated the best performance.
 
 This benchmark highlights significant performance differences among popular JSONPath libraries.
 Developers can use these results as a reference when selecting a library, particularly when performance is critical.
-For real-world use, consider running benchmarks tailored to your specific datasets and queries.
+For real-world use, consider running benchmarks tailored to specific datasets and queries.

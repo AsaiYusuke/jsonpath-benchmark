@@ -6,6 +6,10 @@ import (
 
 var jsonPath_threeLevelsWithIndex string = `$.store.book[0].price`
 
+func Benchmark1_AsaiYusuke_JSONPath_reuseBuffer(b *testing.B) {
+	Execute_AsaiYusuke_JSONPath_reuseBuffer(b, srcJSON, jsonPath_threeLevelsWithIndex)
+}
+
 func Benchmark1_oliveagle_JsonPath(b *testing.B) {
 	Execute_oliveagle_JsonPath(b, srcJSON, jsonPath_threeLevelsWithIndex)
 }

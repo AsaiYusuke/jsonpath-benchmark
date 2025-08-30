@@ -1,5 +1,5 @@
-github.com/AsaiYusuke/jsonpath/v2 v2.1.0 h1:zCiqK1x9tdlKKTkW5vRm2hc6pTOXqnMJvLhB+gIjK9Y=
-github.com/AsaiYusuke/jsonpath/v2 v2.1.0/go.mod h1:Y98U0Usrwioq+aU013GEOt7SEbxE6vtNuschYqQu4Yc=
+github.com/AsaiYusuke/jsonpath/v2 v2.2.0 h1:yqq/5C26jeA++3yngSSO0w+V5uNenb02/4jYrdAZ+fg=
+github.com/AsaiYusuke/jsonpath/v2 v2.2.0/go.mod h1:Y98U0Usrwioq+aU013GEOt7SEbxE6vtNuschYqQu4Yc=
 github.com/PaesslerAG/gval v1.0.0 h1:GEKnRwkWDdf9dOmKcNrar9EA1bz1z9DqPIO1+iLzhd8=
 github.com/PaesslerAG/gval v1.0.0/go.mod h1:y/nm5yEyTeX6av0OfKJNp9rBNj2XrGhAf5+v24IBN1I=
 github.com/PaesslerAG/jsonpath v0.1.0/go.mod h1:4BzmtoM/PI8fPO4aQGIusjGxGir2BzcV0grWtFzq1Y8=
