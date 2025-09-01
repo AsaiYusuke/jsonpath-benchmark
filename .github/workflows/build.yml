@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install requirements
-        run: pip install jinjanator
+        run: pip install jinjanator tabulate pygal
 
       - name: Set up Go
         uses: actions/setup-go@v3
@@ -29,10 +29,26 @@ jobs:
         run: go build -v ./...
 
       - name: Benchmark `$.store.book[0].price`
-        run: go test -benchmem -bench Benchmark1 > benchmark_threeLevelsWithIndex_test.result.txt
+        run: |
+          go test -benchmem -bench Benchmark1 | tee benchmark_threeLevelsWithIndex_test.result.txt
 
       - name: Benchmark `$..book[?(@.price > $.store.bicycle.price)]`
-        run: go test -benchmem -bench Benchmark2 > benchmark_recursiveDescentWithFilter_test.result.txt
+        run: |
+          go test -benchmem -bench Benchmark2 | tee benchmark_recursiveDescentWithFilter_test.result.txt
+
+      - name: Build visual summaries
+        run: python3 scripts/parse_bench.py
+
+      - name: Print generated tables to log
+        run: |
+          echo '--- Bench table (Simple) ---'
+          cat assets/bench_table_simple.md || true
+          echo
+          echo '--- Bench table (Complex) ---'
+          cat assets/bench_table_complex.md || true
+          echo
+          echo '--- Capability matrix ---'
+          cat assets/compat_matrix.md || true
 
       - name: Update README
         run: jinjanate --output-file README.md assets/README.t
@@ -40,5 +56,5 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'README.md'
+          add: 'README.md assets/bench_chart_simple.svg assets/bench_chart_complex.svg'
           message: 'update README for ${{ github.sha }}'
