@@ -48,7 +48,7 @@ jobs:
           cat assets/bench_table_complex.md || true
           echo
           echo '--- Capability matrix ---'
-          cat assets/compat_matrix.md || true
+          cat assets/support_matrix.md || true
 
       - name: Update README
         run: jinjanate --output-file README.md assets/README.t

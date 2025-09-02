@@ -9,7 +9,7 @@ Inputs:
 Outputs (written to assets/):
     - bench_table_simple.md
     - bench_table_complex.md
-    - compat_matrix.md
+    - support_matrix.md
     - bench_chart_simple.svg
     - bench_chart_complex.svg
 
@@ -42,12 +42,12 @@ class Bench:
 LIBRARY_NAME_PAIRS: List[Tuple[str, str]] = [
     ("AsaiYusuke_JSONPath_reuseBuffer", "AsaiYusuke/JSONPath (reuse)"),
     ("AsaiYusuke_JSONPath", "AsaiYusuke/JSONPath"),
-    ("ohler55_OjG_jp", "ohler55/OjG (jp)"),
     ("PaesslerAG_JSONPath", "PaesslerAG/JSONPath"),
-    ("vmware_labs_YAML_JSONPath", "vmware-labs/YAML JSONPath"),
     ("bhmj_JSON_Slice", "bhmj/JSONSlice"),
-    ("Spyzhov_Abstract_JSON", "Spyzhov/ajson"),
+    ("ohler55_OjG_jp", "ohler55/OjG (jp)"),
     ("oliveagle_JsonPath", "oliveagle/JsonPath"),
+    ("Spyzhov_Abstract_JSON", "Spyzhov/ajson"),
+    ("vmware_labs_YAML_JSONPath", "vmware-labs/YAML JSONPath"),
 ]
 DISPLAY_NAME = {k: v for k, v in LIBRARY_NAME_PAIRS}
 
@@ -74,7 +74,7 @@ def parse_result(path: Path) -> Dict[str, Bench]:
     return benches
 
 
-def render_table(benches: Dict[str, Bench], out_path: Path) -> None:
+def render_perf_table(benches: Dict[str, Bench], out_path: Path) -> None:
     if not benches:
         out_path.write_text("_No results found._\n")
         return
@@ -116,7 +116,7 @@ def render_table(benches: Dict[str, Bench], out_path: Path) -> None:
     out_path.write_text(table_md)
 
 
-def render_matrix(
+def render_support_matrix(
     simple: Dict[str, Bench], complex_: Dict[str, Bench], out_path: Path
 ) -> None:
     header = ["Library", "Simple query", "Complex query"]
@@ -221,10 +221,11 @@ def main() -> None:
     complex_result = parse_result(complex_path)
 
     ASSETS.mkdir(exist_ok=True)
-    render_table(simple_result, ASSETS / "bench_table_simple.md")
-    render_table(complex_result, ASSETS / "bench_table_complex.md")
 
-    render_matrix(simple_result, complex_result, ASSETS / "compat_matrix.md")
+    render_perf_table(simple_result, ASSETS / "bench_table_simple.md")
+    render_perf_table(complex_result, ASSETS / "bench_table_complex.md")
+
+    render_support_matrix(simple_result, complex_result, ASSETS / "support_matrix.md")
 
     render_svg_bar_chart(simple_result, ASSETS / "bench_chart_simple.svg")
     render_svg_bar_chart(complex_result, ASSETS / "bench_chart_complex.svg")

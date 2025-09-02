@@ -9,9 +9,9 @@ It evaluates performance in specific scenarios and offers guidance for selecting
 
 - [Overview](#overview)
 - [Libraries Benchmarked](#libraries-benchmarked)
-- [Results: Simple Query](#results-simple-query)
-- [Results: Complex Query](#results-complex-query)
-- [Capability Overview](#capability-overview)
+- [Simple Query Performance](#simple-query-performance)
+- [Complex Query Performance](#complex-query-performance)
+- [Support Matrix](#support-matrix)
 - [Conclusion](#conclusion)
 - [Reproduce Locally](#reproduce-locally)
 - [License](#license)
@@ -38,14 +38,14 @@ Notes on metrics:
 The following libraries are included in this benchmark:
 
 - [AsaiYusuke/JSONPath](https://github.com/AsaiYusuke/jsonpath)
-- [ohler55/OjG](https://github.com/ohler55/ojg)
-- [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
-- [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
-- [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
-- [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
 - [PaesslerAG/JSONPath](https://github.com/PaesslerAG/jsonpath)
+- [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
+- [ohler55/OjG](https://github.com/ohler55/ojg)
+- [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
+- [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
+- [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
 
-## Results: Simple Query
+## Simple Query Performance
 
 JSONPath:
 
@@ -53,18 +53,18 @@ JSONPath:
 $.store.book[0].price
 ```
 
-Performance Summary:
+Summary:
 
 - All listed libraries support this query, so results are directly comparable.
-- With buffer reuse, AsaiYusuke/JSONPath is the fastest; with per-op allocation, it ranks second.
+- With buffer reuse, `AsaiYusuke/JSONPath` is the fastest; with per-op allocation, it ranks second.
 
-### Simple query results
+Performance Detail:
 
 {% include 'assets/bench_table_simple.md' %}
 
 ![Simple query benchmark (ns/op)](assets/bench_chart_simple.svg)
 
-## Results: Complex Query
+## Complex Query Performance
 
 JSONPath:
 
@@ -72,20 +72,20 @@ JSONPath:
 $..book[?(@.price > $.store.bicycle.price)]
 ```
 
-Performance Summary:
+Summary:
 
 - This query exercises recursive descent and filters; only a subset of libraries support it.
-- Among those, AsaiYusuke/JSONPath delivered the best performance.
+- Among those, `AsaiYusuke/JSONPath` delivered the best performance.
 
-### Complex query results
+Performance Detail:
 
 {% include 'assets/bench_table_complex.md' %}
 
 ![Complex query benchmark (ns/op)](assets/bench_chart_complex.svg)
 
-## Capability Overview
+## Support Matrix
 
-{% include 'assets/compat_matrix.md' %}
+{% include 'assets/support_matrix.md' %}
 
 ## Conclusion
 
@@ -96,7 +96,9 @@ For selecting a library in production, we strongly recommend running benchmarks 
 
 ## Reproduce Locally
 
-Benchmarks are executed in GitHub Actions for consistency. For the exact steps and current outputs, check the Actions tab and the workflow logs. If you prefer to run locally, follow the same sequence defined in the workflow file (see `.github/workflows/build.yml`).
+Benchmarks are executed in GitHub Actions for consistency.
+For the exact steps and current outputs, check the Actions tab and the workflow logs.
+If you prefer to run locally, follow the same sequence defined in the workflow file (see [.github/workflows/build.yml](.github/workflows/build.yml)).
 
 ## License
 
