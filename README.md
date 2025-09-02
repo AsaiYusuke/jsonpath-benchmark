@@ -5,6 +5,17 @@
 This project benchmarks multiple JSONPath libraries written in Go.
 It evaluates performance in specific scenarios and offers guidance for selecting an appropriate library.
 
+## Contents
+
+- [Overview](#overview)
+- [Libraries Benchmarked](#libraries-benchmarked)
+- [Simple Query Performance](#simple-query-performance)
+- [Complex Query Performance](#complex-query-performance)
+- [Support Matrix](#support-matrix)
+- [Conclusion](#conclusion)
+- [Reproduce Locally](#reproduce-locally)
+- [License](#license)
+
 ## Overview
 
 Results are generated via GitHub Actions for consistency and automation.
@@ -16,19 +27,25 @@ Instead, it emphasizes scenarios with intensive looping or query execution withi
 Results may vary with factors such as input structure, query complexity, and runtime environment.
 Treat these benchmarks as a general reference and re-evaluate them periodically.
 
+Notes on metrics:
+
+- Time: ns/op (lower is better)
+- Memory: B/op (lower is better)
+- Allocations: allocs/op (lower is better)
+
 ## Libraries Benchmarked
 
 The following libraries are included in this benchmark:
 
 - [AsaiYusuke/JSONPath](https://github.com/AsaiYusuke/jsonpath)
-- [ohler55/OjG](https://github.com/ohler55/ojg)
-- [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
-- [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
-- [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
-- [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
 - [PaesslerAG/JSONPath](https://github.com/PaesslerAG/jsonpath)
+- [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
+- [ohler55/OjG](https://github.com/ohler55/ojg)
+- [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
+- [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
+- [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
 
-## Results: Simple Query
+## Simple Query Performance
 
 JSONPath:
 
@@ -36,30 +53,27 @@ JSONPath:
 $.store.book[0].price
 ```
 
-Performance Summary:
+Summary:
 
-All libraries support this query, enabling a direct performance comparison across them.
-With buffer reuse enabled, AsaiYusuke/JSONPath is the fastest; when allocating a new buffer per operation, it ranks second.
+- All listed libraries support this query, so results are directly comparable.
+- With buffer reuse, `AsaiYusuke/JSONPath` is the fastest; with per-op allocation, it ranks second.
 
-``` bash
-goos: linux
-goarch: amd64
-pkg: github.com/AsaiYusuke/jsonpath_benchmark
-cpu: AMD EPYC 7763 64-Core Processor                
-Benchmark1_AsaiYusuke_JSONPath_reuseBuffer-4   	18992085	        62.50 ns/op	       0 B/op	       0 allocs/op
-Benchmark1_oliveagle_JsonPath-4                	16875874	        70.56 ns/op	       0 B/op	       0 allocs/op
-Benchmark1_AsaiYusuke_JSONPath-4               	11419996	       103.9 ns/op	      16 B/op	       1 allocs/op
-Benchmark1_ohler55_OjG_jp-4                    	 3395434	       350.9 ns/op	    1168 B/op	       2 allocs/op
-Benchmark1_PaesslerAG_JSONPath-4               	 2958105	       399.7 ns/op	     208 B/op	       7 allocs/op
-Benchmark1_vmware_labs_YAML_JSONPath-4         	 1323622	       907.0 ns/op	     464 B/op	      28 allocs/op
-Benchmark1_bhmj_JSON_Slice-4                   	  929371	      1286 ns/op	      24 B/op	       1 allocs/op
-Benchmark1_Spyzhov_Abstract_JSON-4             	  863251	      1431 ns/op	     472 B/op	      25 allocs/op
-PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	9.578s
+Performance Detail:
 
-```
+|  Rank  | Library                     |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
+|:------:|:----------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
+|   1    | AsaiYusuke/JSONPath (reuse) |          62.40 |               0 |                         0 |                           1.00x |
+|   2    | oliveagle/JsonPath          |          69.32 |               0 |                         0 |                           1.11x |
+|   3    | AsaiYusuke/JSONPath         |         105.70 |              16 |                         1 |                           1.69x |
+|   4    | ohler55/OjG (jp)            |         358.70 |            1168 |                         2 |                           5.75x |
+|   5    | PaesslerAG/JSONPath         |         397.90 |             208 |                         7 |                           6.38x |
+|   6    | vmware-labs/YAML JSONPath   |         908.60 |             464 |                        28 |                          14.56x |
+|   7    | bhmj/JSONSlice              |        1279.00 |              24 |                         1 |                          20.50x |
+|   8    | Spyzhov/ajson               |        1385.00 |             472 |                        25 |                          22.20x |
 
-## Results: Complex Query
+![Simple query benchmark (ns/op)](assets/bench_chart_simple.svg)
+
+## Complex Query Performance
 
 JSONPath:
 
@@ -67,28 +81,49 @@ JSONPath:
 $..book[?(@.price > $.store.bicycle.price)]
 ```
 
-Performance Summary:
+Summary:
 
-This query uses more complex syntax, and only a subset of libraries could process it.
-Among them, AsaiYusuke/JSONPath delivered the best performance.
+- This query exercises recursive descent and filters; only a subset of libraries support it.
+- Among those, `AsaiYusuke/JSONPath` delivered the best performance.
 
-``` bash
-goos: linux
-goarch: amd64
-pkg: github.com/AsaiYusuke/jsonpath_benchmark
-cpu: AMD EPYC 7763 64-Core Processor                
-Benchmark2_AsaiYusuke_JSONPath_reuseBuffer-4   	 1000000	      1130 ns/op	      80 B/op	       2 allocs/op
-Benchmark2_AsaiYusuke_JSONPath-4               	 1000000	      1169 ns/op	      96 B/op	       3 allocs/op
-Benchmark2_ohler55_OjG_jp-4                    	  312778	      3794 ns/op	    6200 B/op	      37 allocs/op
-Benchmark2_bhmj_JSON_Slice-4                   	   75607	     15887 ns/op	    1784 B/op	      38 allocs/op
-Benchmark2_Spyzhov_Abstract_JSON-4             	   77376	     16420 ns/op	    5480 B/op	     223 allocs/op
-PASS
-ok  	github.com/AsaiYusuke/jsonpath_benchmark	5.965s
+Performance Detail:
 
-```
+|  Rank  | Library                     |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
+|:------:|:----------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
+|   1    | AsaiYusuke/JSONPath (reuse) |        1097.00 |              80 |                         2 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath         |        1162.00 |              96 |                         3 |                           1.06x |
+|   3    | ohler55/OjG (jp)            |        3889.00 |            6200 |                        37 |                           3.55x |
+|   4    | Spyzhov/ajson               |       15687.00 |            5480 |                       223 |                          14.30x |
+|   5    | bhmj/JSONSlice              |       15894.00 |            1784 |                        38 |                          14.49x |
+
+![Complex query benchmark (ns/op)](assets/bench_chart_complex.svg)
+
+## Support Matrix
+
+| Library                     | Simple query   | Complex query   |
+|:----------------------------|:---------------|:----------------|
+| AsaiYusuke/JSONPath (reuse) | ✅              | ✅               |
+| AsaiYusuke/JSONPath         | ✅              | ✅               |
+| PaesslerAG/JSONPath         | ✅              | ❌               |
+| bhmj/JSONSlice              | ✅              | ✅               |
+| ohler55/OjG (jp)            | ✅              | ✅               |
+| oliveagle/JsonPath          | ✅              | ❌               |
+| Spyzhov/ajson               | ✅              | ✅               |
+| vmware-labs/YAML JSONPath   | ✅              | ❌               |
 
 ## Conclusion
 
-This benchmark highlights significant performance differences among popular JSONPath libraries.
-Developers can use these results as a reference when selecting a library, particularly when performance is critical.
-For real-world use, consider running benchmarks tailored to specific datasets and queries.
+This benchmark compared several popular JSONPath libraries in Go and highlighted notable performance differences.
+Interestingly, the simple query showed a wider performance spread than the complex one, suggesting that implementation details and variations in query syntax handling can directly impact execution speed.
+Therefore, a practical evaluation should consider both feature support and raw performance.
+For selecting a library in production, we strongly recommend running benchmarks tailored to your own datasets and query patterns.
+
+## Reproduce Locally
+
+Benchmarks are executed in GitHub Actions for consistency.
+For the exact steps and current outputs, check the Actions tab and the workflow logs.
+If you prefer to run locally, follow the same sequence defined in the workflow file (see [.github/workflows/build.yml](.github/workflows/build.yml)).
+
+## License
+
+This project is distributed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
