@@ -37,13 +37,7 @@ Notes on metrics:
 
 The following libraries are included in this benchmark:
 
-- [AsaiYusuke/JSONPath](https://github.com/AsaiYusuke/jsonpath)
-- [PaesslerAG/JSONPath](https://github.com/PaesslerAG/jsonpath)
-- [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
-- [ohler55/OjG](https://github.com/ohler55/ojg)
-- [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
-- [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
-- [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
+{% include 'assets/libraries.md' %}
 
 ## Simple Query Performance
 
