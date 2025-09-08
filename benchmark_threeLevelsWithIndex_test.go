@@ -4,8 +4,8 @@ import (
 	"testing"
 )
 
-var jsonPath_threeLevelsWithIndex string = `$.store.book[0].price`
-var expect_threeLevelsWithIndex = &BenchExpect{Values: []any{8.95}}
+var jsonPath_threeLevelsWithIndex string = `$.store.book[*].price`
+var expect_threeLevelsWithIndex = &BenchExpect{Values: []any{8.95, 12.99, 8.99, 22.99}}
 
 func Benchmark1_AsaiYusuke_JSONPath_reuseBuffer(b *testing.B) {
 	Execute_AsaiYusuke_JSONPath_reuseBuffer(b, srcJSON, jsonPath_threeLevelsWithIndex, expect_threeLevelsWithIndex)

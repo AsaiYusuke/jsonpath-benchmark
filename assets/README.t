@@ -44,13 +44,16 @@ The following libraries are included in this benchmark:
 JSONPath:
 
 ``` text
-$.store.book[0].price
+$.store.book[*].price
 ```
 
 Summary:
 
-- All listed libraries support this query, so results are directly comparable.
-- With buffer reuse, `AsaiYusuke/JSONPath` is the fastest; with per-op allocation, it ranks second.
+- Query features:
+  - root selector (`$`)
+  - child segments (name selectors)
+  - wildcard selector (`[*]`)
+- Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
 
@@ -68,8 +71,13 @@ $..book[?(@.price > $.store.bicycle.price)]
 
 Summary:
 
-- This query exercises recursive descent and filters; only a subset of libraries support it.
-- Among those, `AsaiYusuke/JSONPath` delivered the best performance.
+- Query features:
+  - root selector (`$`)
+  - descendant segment (`..`)
+  - filter selector (`?()`) with comparison expression
+  - path references (`@` and `$`)
+  - child segments (name selectors)
+- Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
 
