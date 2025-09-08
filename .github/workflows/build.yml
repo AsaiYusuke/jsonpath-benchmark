@@ -42,7 +42,7 @@ jobs:
       - name: Print generated tables to log
         run: |
           echo '--- Libraries ---'
-          cat assets/libraries.md || true'
+          cat assets/libraries.md || true
           echo
           echo '--- Bench table (Simple) ---'
           cat assets/bench_table_simple.md || true
