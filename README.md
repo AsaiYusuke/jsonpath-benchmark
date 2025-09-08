@@ -40,7 +40,7 @@ The following libraries are included in this benchmark:
 - [AsaiYusuke/JSONPath](https://github.com/AsaiYusuke/jsonpath)
 - [PaesslerAG/JSONPath](https://github.com/PaesslerAG/jsonpath)
 - [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
-- [ohler55/OjG](https://github.com/ohler55/ojg)
+- [ohler55/OjG (jp)](https://github.com/ohler55/ojg)
 - [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
 - [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
 - [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
@@ -50,26 +50,29 @@ The following libraries are included in this benchmark:
 JSONPath:
 
 ``` text
-$.store.book[0].price
+$.store.book[*].price
 ```
 
 Summary:
 
-- All listed libraries support this query, so results are directly comparable.
-- With buffer reuse, `AsaiYusuke/JSONPath` is the fastest; with per-op allocation, it ranks second.
+- Query features:
+  - root selector (`$`)
+  - child segments (name selectors)
+  - wildcard selector (`[*]`)
+- Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
 
 |  Rank  | Library                     |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
 |:------:|:----------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
-|   1    | AsaiYusuke/JSONPath (reuse) |          62.40 |               0 |                         0 |                           1.00x |
-|   2    | oliveagle/JsonPath          |          69.32 |               0 |                         0 |                           1.11x |
-|   3    | AsaiYusuke/JSONPath         |         105.70 |              16 |                         1 |                           1.69x |
-|   4    | ohler55/OjG (jp)            |         358.70 |            1168 |                         2 |                           5.75x |
-|   5    | PaesslerAG/JSONPath         |         397.90 |             208 |                         7 |                           6.38x |
-|   6    | vmware-labs/YAML JSONPath   |         908.60 |             464 |                        28 |                          14.56x |
-|   7    | bhmj/JSONSlice              |        1279.00 |              24 |                         1 |                          20.50x |
-|   8    | Spyzhov/ajson               |        1385.00 |             472 |                        25 |                          22.20x |
+|   1    | AsaiYusuke/JSONPath (reuse) |         126.20 |               0 |                         0 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath         |         168.30 |              64 |                         1 |                           1.33x |
+|   3    | oliveagle/JsonPath          |         358.70 |             160 |                         5 |                           2.84x |
+|   4    | ohler55/OjG (jp)            |         487.50 |            1264 |                         4 |                           3.86x |
+|   5    | PaesslerAG/JSONPath         |        1311.00 |             816 |                        29 |                          10.39x |
+|   6    | vmware-labs/YAML JSONPath   |        2042.00 |            1264 |                        69 |                          16.18x |
+|   7    | Spyzhov/Abstract JSON       |        2387.00 |             968 |                        30 |                          18.91x |
+|   8    | bhmj/JSONSlice              |        4181.00 |             312 |                        13 |                          33.13x |
 
 ![Simple query benchmark (ns/op)](assets/bench_chart_simple.svg)
 
@@ -83,18 +86,23 @@ $..book[?(@.price > $.store.bicycle.price)]
 
 Summary:
 
-- This query exercises recursive descent and filters; only a subset of libraries support it.
-- Among those, `AsaiYusuke/JSONPath` delivered the best performance.
+- Query features:
+  - root selector (`$`)
+  - descendant segment (`..`)
+  - filter selector (`?()`) with comparison expression
+  - path references (`@` and `$`)
+  - child segments (name selectors)
+- Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
 
 |  Rank  | Library                     |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
 |:------:|:----------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
-|   1    | AsaiYusuke/JSONPath (reuse) |        1097.00 |              80 |                         2 |                           1.00x |
-|   2    | AsaiYusuke/JSONPath         |        1162.00 |              96 |                         3 |                           1.06x |
-|   3    | ohler55/OjG (jp)            |        3889.00 |            6200 |                        37 |                           3.55x |
-|   4    | Spyzhov/ajson               |       15687.00 |            5480 |                       223 |                          14.30x |
-|   5    | bhmj/JSONSlice              |       15894.00 |            1784 |                        38 |                          14.49x |
+|   1    | AsaiYusuke/JSONPath (reuse) |        1095.00 |              80 |                         2 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath         |        1157.00 |              96 |                         3 |                           1.06x |
+|   3    | ohler55/OjG (jp)            |        3680.00 |            6200 |                        37 |                           3.36x |
+|   4    | Spyzhov/Abstract JSON       |       15388.00 |            5480 |                       223 |                          14.05x |
+|   5    | bhmj/JSONSlice              |       15663.00 |            1784 |                        38 |                          14.30x |
 
 ![Complex query benchmark (ns/op)](assets/bench_chart_complex.svg)
 
@@ -108,7 +116,7 @@ Performance Detail:
 | bhmj/JSONSlice              | ✅              | ✅               |
 | ohler55/OjG (jp)            | ✅              | ✅               |
 | oliveagle/JsonPath          | ✅              | ❌               |
-| Spyzhov/ajson               | ✅              | ✅               |
+| Spyzhov/Abstract JSON       | ✅              | ✅               |
 | vmware-labs/YAML JSONPath   | ✅              | ❌               |
 
 ## Conclusion

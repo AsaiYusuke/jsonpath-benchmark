@@ -24,7 +24,12 @@ func Execute_bhmj_JSON_Slice(b *testing.B, srcJSON string, jsonPath string, expe
 
 	result, ok := value.([]any)
 	if ok {
-		result = result[0].([]any)
+		if len(result) == 1 {
+			_result, ok := result[0].([]any)
+			if ok {
+				result = _result
+			}
+		}
 	} else {
 		result = []any{value}
 	}

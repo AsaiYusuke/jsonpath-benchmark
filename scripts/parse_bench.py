@@ -19,8 +19,9 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+import json
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List
 from tabulate import tabulate
 import pygal
 from pygal.style import Style
@@ -39,22 +40,43 @@ class Bench:
     allocs_per_op: int
 
 
-LIBRARY_NAME_PAIRS: List[Tuple[str, str]] = [
-    ("AsaiYusuke_JSONPath_reuseBuffer", "AsaiYusuke/JSONPath (reuse)"),
-    ("AsaiYusuke_JSONPath", "AsaiYusuke/JSONPath"),
-    ("PaesslerAG_JSONPath", "PaesslerAG/JSONPath"),
-    ("bhmj_JSON_Slice", "bhmj/JSONSlice"),
-    ("ohler55_OjG_jp", "ohler55/OjG (jp)"),
-    ("oliveagle_JsonPath", "oliveagle/JsonPath"),
-    ("Spyzhov_Abstract_JSON", "Spyzhov/ajson"),
-    ("vmware_labs_YAML_JSONPath", "vmware-labs/YAML JSONPath"),
-]
-DISPLAY_NAME = {k: v for k, v in LIBRARY_NAME_PAIRS}
+def load_libraries() -> List[Dict[str, str]]:
+    path = ASSETS / "libraries.json"
+    if not path.exists():
+        raise FileNotFoundError(f"Missing libraries definition file: {path}")
+    data = json.loads(path.read_text())
+
+    libs: List[Dict[str, str]] = []
+    for item in data:
+        id = str(item.get("id", "")).strip()
+        name = str(item.get("name", "")).strip()
+        url = str(item.get("url", "")).strip()
+        if not id or not name:
+            continue
+        libs.append({"id": id, "name": name, "url": url})
+    return libs
+
+
+LIBRARIES: List[Dict[str, str]] = load_libraries()
+DISPLAY_NAME = {lib["id"]: lib["name"] for lib in LIBRARIES}
 
 
 LINE_RE = re.compile(
     r"^Benchmark\d+_(.+?)-\d+\s+(\d+)\s+([\d\.]+)\s+ns/op\s+(\d+)\s+B/op\s+(\d+)\s+allocs/op$"
 )
+
+
+def render_library_list(out_path: Path) -> None:
+    lines: List[str] = []
+    for lib in LIBRARIES:
+        name = lib["name"]
+        url = lib.get("url", "").strip()
+        if not url:
+            continue
+
+        lines.append(f"- [{name}]({url})")
+
+    out_path.write_text("\n".join(lines))
 
 
 def parse_result(path: Path) -> Dict[str, Bench]:
@@ -121,7 +143,9 @@ def render_support_matrix(
 ) -> None:
     header = ["Library", "Simple query", "Complex query"]
     rows: List[List[str]] = []
-    for key, disp in LIBRARY_NAME_PAIRS:
+    for lib in LIBRARIES:
+        key = lib["id"]
+        disp = lib["name"]
         ok_simple = "✅" if key in simple else "❌"
         ok_complex = "✅" if key in complex_ else "❌"
         rows.append([disp, ok_simple, ok_complex])
@@ -142,10 +166,7 @@ _PALETTE = [
     "#bab0ab",
 ]
 
-COLOR_MAP = {
-    key: _PALETTE[i % len(_PALETTE)]
-    for i, (key, _disp) in enumerate(LIBRARY_NAME_PAIRS)
-}
+COLOR_MAP = {lib["id"]: _PALETTE[i % len(_PALETTE)] for i, lib in enumerate(LIBRARIES)}
 
 
 def render_svg_bar_chart(benches: Dict[str, Bench], out_path: Path) -> None:
@@ -221,6 +242,8 @@ def main() -> None:
     complex_result = parse_result(complex_path)
 
     ASSETS.mkdir(exist_ok=True)
+
+    render_library_list(ASSETS / "libraries.md")
 
     render_perf_table(simple_result, ASSETS / "bench_table_simple.md")
     render_perf_table(complex_result, ASSETS / "bench_table_complex.md")

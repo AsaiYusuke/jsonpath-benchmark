@@ -25,7 +25,17 @@ func Execute_oliveagle_JsonPath(b *testing.B, srcJSON string, jsonPath string, e
 		b.Skip(err)
 		return
 	}
-	result := []any{value}
+	result, ok := value.([]any)
+	if ok {
+		if len(result) == 1 {
+			_result, ok := result[0].([]any)
+			if ok {
+				result = _result
+			}
+		}
+	} else {
+		result = []any{result}
+	}
 	if ok, reason := expect.validateSlice(result); !ok {
 		if reason != "" {
 			b.Skipf("precheck failed: %s", reason)

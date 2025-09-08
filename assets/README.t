@@ -37,26 +37,23 @@ Notes on metrics:
 
 The following libraries are included in this benchmark:
 
-- [AsaiYusuke/JSONPath](https://github.com/AsaiYusuke/jsonpath)
-- [PaesslerAG/JSONPath](https://github.com/PaesslerAG/jsonpath)
-- [bhmj/JSONSlice](https://github.com/bhmj/jsonslice)
-- [ohler55/OjG](https://github.com/ohler55/ojg)
-- [oliveagle/JsonPath](https://github.com/oliveagle/jsonpath)
-- [Spyzhov/Abstract JSON](https://github.com/spyzhov/ajson)
-- [vmware-labs/YAML JSONPath](https://github.com/vmware-labs/yaml-jsonpath)
+{% include 'assets/libraries.md' %}
 
 ## Simple Query Performance
 
 JSONPath:
 
 ``` text
-$.store.book[0].price
+$.store.book[*].price
 ```
 
 Summary:
 
-- All listed libraries support this query, so results are directly comparable.
-- With buffer reuse, `AsaiYusuke/JSONPath` is the fastest; with per-op allocation, it ranks second.
+- Query features:
+  - root selector (`$`)
+  - child segments (name selectors)
+  - wildcard selector (`[*]`)
+- Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
 
@@ -74,8 +71,13 @@ $..book[?(@.price > $.store.bicycle.price)]
 
 Summary:
 
-- This query exercises recursive descent and filters; only a subset of libraries support it.
-- Among those, `AsaiYusuke/JSONPath` delivered the best performance.
+- Query features:
+  - root selector (`$`)
+  - descendant segment (`..`)
+  - filter selector (`?()`) with comparison expression
+  - path references (`@` and `$`)
+  - child segments (name selectors)
+- Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
 
