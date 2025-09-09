@@ -65,14 +65,14 @@ Performance Detail:
 
 |  Rank  | Library                     |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
 |:------:|:----------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
-|   1    | AsaiYusuke/JSONPath (reuse) |         126.20 |               0 |                         0 |                           1.00x |
-|   2    | AsaiYusuke/JSONPath         |         168.30 |              64 |                         1 |                           1.33x |
-|   3    | oliveagle/JsonPath          |         358.70 |             160 |                         5 |                           2.84x |
-|   4    | ohler55/OjG (jp)            |         487.50 |            1264 |                         4 |                           3.86x |
-|   5    | PaesslerAG/JSONPath         |        1311.00 |             816 |                        29 |                          10.39x |
-|   6    | vmware-labs/YAML JSONPath   |        2042.00 |            1264 |                        69 |                          16.18x |
-|   7    | Spyzhov/Abstract JSON       |        2387.00 |             968 |                        30 |                          18.91x |
-|   8    | bhmj/JSONSlice              |        4181.00 |             312 |                        13 |                          33.13x |
+|   1    | AsaiYusuke/JSONPath (reuse) |         121.40 |               0 |                         0 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath         |         167.00 |              64 |                         1 |                           1.38x |
+|   3    | oliveagle/JsonPath          |         366.50 |             160 |                         5 |                           3.02x |
+|   4    | ohler55/OjG (jp)            |         489.70 |            1264 |                         4 |                           4.03x |
+|   5    | PaesslerAG/JSONPath         |        1308.00 |             816 |                        29 |                          10.77x |
+|   6    | vmware-labs/YAML JSONPath   |        2107.00 |            1264 |                        69 |                          17.36x |
+|   7    | Spyzhov/Abstract JSON       |        2403.00 |             968 |                        30 |                          19.79x |
+|   8    | bhmj/JSONSlice              |        4196.00 |             312 |                        13 |                          34.56x |
 
 ![Simple query benchmark (ns/op)](assets/bench_chart_simple.svg)
 
@@ -98,11 +98,11 @@ Performance Detail:
 
 |  Rank  | Library                     |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
 |:------:|:----------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
-|   1    | AsaiYusuke/JSONPath (reuse) |        1095.00 |              80 |                         2 |                           1.00x |
-|   2    | AsaiYusuke/JSONPath         |        1157.00 |              96 |                         3 |                           1.06x |
-|   3    | ohler55/OjG (jp)            |        3680.00 |            6200 |                        37 |                           3.36x |
-|   4    | Spyzhov/Abstract JSON       |       15388.00 |            5480 |                       223 |                          14.05x |
-|   5    | bhmj/JSONSlice              |       15663.00 |            1784 |                        38 |                          14.30x |
+|   1    | AsaiYusuke/JSONPath (reuse) |        1097.00 |              80 |                         2 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath         |        1157.00 |              96 |                         3 |                           1.05x |
+|   3    | ohler55/OjG (jp)            |        3623.00 |            6200 |                        37 |                           3.30x |
+|   4    | Spyzhov/Abstract JSON       |       15385.00 |            5480 |                       223 |                          14.02x |
+|   5    | bhmj/JSONSlice              |       15627.00 |            1784 |                        38 |                          14.25x |
 
 ![Complex query benchmark (ns/op)](assets/bench_chart_complex.svg)
 
