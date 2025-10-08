@@ -53,6 +53,7 @@ Summary:
   - root selector (`$`)
   - child segments (name selectors)
   - wildcard selector (`[*]`)
+- Compatibility: {% include 'assets/compat_simple.txt' %}
 - Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:
@@ -77,6 +78,7 @@ Summary:
   - filter selector (`?()`) with comparison expression
   - path references (`@` and `$`)
   - child segments (name selectors)
+- Compatibility: {% include 'assets/compat_complex.txt' %}
 - Fastest: `AsaiYusuke/JSONPath`
 
 Performance Detail:

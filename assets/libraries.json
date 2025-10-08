@@ -35,8 +35,18 @@
         "url": "https://github.com/spyzhov/ajson"
     },
     {
+        "id": "Theory_JSONPath",
+        "name": "theory/RFC 9535 JSONPath in Go",
+        "url": "https://github.com/theory/jsonpath"
+    },
+    {
         "id": "vmware_labs_YAML_JSONPath",
         "name": "vmware-labs/YAML JSONPath",
         "url": "https://github.com/vmware-labs/yaml-jsonpath"
+    },
+    {
+        "id": "Yalp_JSONPath",
+        "name": "Yalp/JSONPath",
+        "url": "https://github.com/yalp/jsonpath"
     }
 ]

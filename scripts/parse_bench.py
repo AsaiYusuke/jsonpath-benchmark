@@ -153,6 +153,27 @@ def render_support_matrix(
     out_path.write_text(table_md)
 
 
+def render_compatibility_snippets(
+    simple: Dict[str, Bench], complex_: Dict[str, Bench], assets_dir: Path
+) -> None:
+    """Generate compatibility text snippets for use in templates."""
+    total_libs = len(LIBRARIES)
+    simple_count = len(simple)
+    complex_count = len(complex_)
+
+    # Simple compatibility
+    simple_text = f"{simple_count}/{total_libs}"
+    if simple_count == total_libs:
+        simple_text += " (all libraries)"
+    (assets_dir / "compat_simple.txt").write_text(simple_text)
+
+    # Complex compatibility
+    complex_text = f"{complex_count}/{total_libs}"
+    if complex_count < total_libs:
+        complex_text += " (see Support Matrix)"
+    (assets_dir / "compat_complex.txt").write_text(complex_text)
+
+
 _PALETTE = [
     "#4e79a7",
     "#f28e2b",
@@ -249,6 +270,8 @@ def main() -> None:
     render_perf_table(complex_result, ASSETS / "bench_table_complex.md")
 
     render_support_matrix(simple_result, complex_result, ASSETS / "support_matrix.md")
+
+    render_compatibility_snippets(simple_result, complex_result, ASSETS)
 
     render_svg_bar_chart(simple_result, ASSETS / "bench_chart_simple.svg")
     render_svg_bar_chart(complex_result, ASSETS / "bench_chart_complex.svg")
