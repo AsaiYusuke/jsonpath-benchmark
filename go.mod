@@ -9,7 +9,7 @@ require (
 	github.com/ohler55/ojg v1.26.10
 	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852
 	github.com/spyzhov/ajson v0.9.6
-	github.com/theory/jsonpath v0.10.1
+	github.com/theory/jsonpath v0.10.2
 	github.com/vmware-labs/yaml-jsonpath v0.3.2
 	github.com/yalp/jsonpath v0.0.0-20180802001716-5cc68e5049a0
 	gopkg.in/yaml.v3 v3.0.1
