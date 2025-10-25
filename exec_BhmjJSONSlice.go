@@ -43,9 +43,6 @@ func Execute_bhmj_JSON_Slice(b *testing.B, srcJSON string, jsonPath string, expe
 	}
 
 	for b.Loop() {
-		if _, err := jsonslice.Get(src, jsonPath); err != nil {
-			b.Skip(err)
-			return
-		}
+		jsonslice.Get(src, jsonPath)
 	}
 }

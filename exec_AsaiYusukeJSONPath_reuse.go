@@ -38,9 +38,6 @@ func Execute_AsaiYusuke_JSONPath_reuseBuffer(b *testing.B, srcJSON string, jsonP
 	args := []*[]any{&buf}
 
 	for b.Loop() {
-		if _, err := parserFunc(src, args...); err != nil {
-			b.Skip(err)
-			return
-		}
+		parserFunc(src, args...)
 	}
 }

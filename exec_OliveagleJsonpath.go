@@ -46,9 +46,6 @@ func Execute_oliveagle_JsonPath(b *testing.B, srcJSON string, jsonPath string, e
 	}
 
 	for b.Loop() {
-		if _, err := pat.Lookup(src); err != nil {
-			b.Skip(err)
-			return
-		}
+		pat.Lookup(src)
 	}
 }

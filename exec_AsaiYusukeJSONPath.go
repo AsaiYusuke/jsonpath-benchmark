@@ -35,9 +35,6 @@ func Execute_AsaiYusuke_JSONPath(b *testing.B, srcJSON string, jsonPath string, 
 	}
 
 	for b.Loop() {
-		if _, err := parserFunc(src); err != nil {
-			b.Skip(err)
-			return
-		}
+		parserFunc(src)
 	}
 }

@@ -46,9 +46,6 @@ func Execute_Yalp_JSONPath(b *testing.B, srcJSON string, jsonPath string, expect
 	}
 
 	for b.Loop() {
-		if _, err := parserFunc(src); err != nil {
-			b.Skip(err)
-			return
-		}
+		parserFunc(src)
 	}
 }
