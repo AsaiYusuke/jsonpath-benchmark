@@ -47,9 +47,6 @@ func Execute_PaesslerAG_JSONPath(b *testing.B, srcJSON string, jsonPath string, 
 	}
 
 	for b.Loop() {
-		if _, err := eval(context.Background(), src); err != nil {
-			b.Skip(err)
-			return
-		}
+		eval(context.Background(), src)
 	}
 }

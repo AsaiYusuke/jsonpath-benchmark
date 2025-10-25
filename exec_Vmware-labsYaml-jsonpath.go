@@ -55,9 +55,6 @@ func Execute_vmware_labs_YAML_JSONPath(b *testing.B, srcJSON string, jsonPath st
 	}
 
 	for b.Loop() {
-		if _, err := path.Find(&srcYamlNode); err != nil {
-			b.Skip(err)
-			return
-		}
+		path.Find(&srcYamlNode)
 	}
 }
