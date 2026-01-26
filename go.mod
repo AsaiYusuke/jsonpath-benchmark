@@ -7,7 +7,7 @@ require (
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/bhmj/jsonslice v1.1.3
 	github.com/ohler55/ojg v1.28.0
-	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852
+	github.com/oliveagle/jsonpath v0.1.4
 	github.com/spyzhov/ajson v0.9.6
 	github.com/theory/jsonpath v0.10.2
 	github.com/vmware-labs/yaml-jsonpath v0.3.2
