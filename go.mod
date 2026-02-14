@@ -1,6 +1,6 @@
 module github.com/AsaiYusuke/jsonpath_benchmark
 
-go 1.25.6
+go 1.26.0
 
 require (
 	github.com/AsaiYusuke/jsonpath/v2 v2.2.0
