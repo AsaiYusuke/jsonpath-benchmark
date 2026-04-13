@@ -46,8 +46,8 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
-github.com/theory/jsonpath v0.11.0 h1:IlzhI/Ui8nFu50SVpnyYHzZVvI0+etEoZLR5LsZJOVc=
-github.com/theory/jsonpath v0.11.0/go.mod h1:vl8nfJyq9MKMbcAiKv+7N9W3jDCH8qPr0mZoZj8wRk8=
+github.com/theory/jsonpath v0.12.0 h1:NQeuE0ohHHhss0DoxU9Xu2IpTTrlx9x4mv4F3pcmDME=
+github.com/theory/jsonpath v0.12.0/go.mod h1:vl8nfJyq9MKMbcAiKv+7N9W3jDCH8qPr0mZoZj8wRk8=
 github.com/vmware-labs/yaml-jsonpath v0.3.2 h1:/5QKeCBGdsInyDCyVNLbXyilb61MXGi9NP674f9Hobk=
 github.com/vmware-labs/yaml-jsonpath v0.3.2/go.mod h1:U6whw1z03QyqgWdgXxvVnQ90zN1BWz5V+51Ewf8k+rQ=
 github.com/yalp/jsonpath v0.0.0-20180802001716-5cc68e5049a0 h1:6fRhSjgLCkTD3JnJxvaJ4Sj+TYblw757bqYgZaOq5ZY=
