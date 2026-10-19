@@ -68,16 +68,16 @@ Performance Detail:
 
 |  Rank  | Library                        |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
 |:------:|:-------------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
-|   1    | AsaiYusuke/JSONPath (reuse)    |         117.50 |               0 |                         0 |                           1.00x |
-|   2    | AsaiYusuke/JSONPath            |         170.50 |              64 |                         1 |                           1.45x |
-|   3    | Yalp/JSONPath                  |         279.70 |             160 |                         5 |                           2.38x |
-|   4    | oliveagle/JsonPath             |         400.50 |             160 |                         5 |                           3.41x |
-|   5    | ohler55/OjG (jp)               |         543.40 |            1264 |                         4 |                           4.62x |
-|   6    | theory/RFC 9535 JSONPath in Go |         740.00 |             464 |                        20 |                           6.30x |
-|   7    | PaesslerAG/JSONPath            |        1343.00 |             816 |                        29 |                          11.43x |
-|   8    | vmware-labs/YAML JSONPath      |        2050.00 |            1240 |                        67 |                          17.45x |
-|   9    | Spyzhov/Abstract JSON          |        2370.00 |             968 |                        30 |                          20.17x |
-|   10   | bhmj/JSONSlice                 |        4143.00 |             312 |                        13 |                          35.26x |
+|   1    | AsaiYusuke/JSONPath (reuse)    |          88.18 |               0 |                         0 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath            |         124.20 |              64 |                         1 |                           1.41x |
+|   3    | Yalp/JSONPath                  |         206.30 |             160 |                         5 |                           2.34x |
+|   4    | oliveagle/JsonPath             |         257.70 |             160 |                         5 |                           2.92x |
+|   5    | ohler55/OjG (jp)               |         460.90 |            1264 |                         4 |                           5.23x |
+|   6    | theory/RFC 9535 JSONPath in Go |         541.60 |             464 |                        20 |                           6.14x |
+|   7    | PaesslerAG/JSONPath            |         921.50 |             816 |                        29 |                          10.45x |
+|   8    | vmware-labs/YAML JSONPath      |        1475.00 |            1240 |                        67 |                          16.73x |
+|   9    | Spyzhov/Abstract JSON          |        1659.00 |             968 |                        30 |                          18.81x |
+|   10   | bhmj/JSONSlice                 |        2821.00 |             312 |                        13 |                          31.99x |
 
 ![Simple query benchmark (ns/op)](assets/bench_chart_simple.svg)
 
@@ -104,12 +104,12 @@ Performance Detail:
 
 |  Rank  | Library                        |   Time (ns/op) |   Memory (B/op) |   Allocations (allocs/op) |   Relative speed (fastest = 1x) |
 |:------:|:-------------------------------|---------------:|----------------:|--------------------------:|--------------------------------:|
-|   1    | AsaiYusuke/JSONPath (reuse)    |        1137.00 |              80 |                         2 |                           1.00x |
-|   2    | AsaiYusuke/JSONPath            |        1181.00 |              96 |                         3 |                           1.04x |
-|   3    | theory/RFC 9535 JSONPath in Go |        3223.00 |            1408 |                        66 |                           2.83x |
-|   4    | ohler55/OjG (jp)               |        3986.00 |            6200 |                        37 |                           3.51x |
-|   5    | Spyzhov/Abstract JSON          |       15209.00 |            5464 |                       222 |                          13.38x |
-|   6    | bhmj/JSONSlice                 |       15699.00 |            1728 |                        35 |                          13.81x |
+|   1    | AsaiYusuke/JSONPath (reuse)    |         839.10 |              80 |                         2 |                           1.00x |
+|   2    | AsaiYusuke/JSONPath            |         883.20 |              96 |                         3 |                           1.05x |
+|   3    | theory/RFC 9535 JSONPath in Go |        2489.00 |            1408 |                        66 |                           2.97x |
+|   4    | ohler55/OjG (jp)               |        2905.00 |            6200 |                        37 |                           3.46x |
+|   5    | Spyzhov/Abstract JSON          |       10635.00 |            5464 |                       222 |                          12.67x |
+|   6    | bhmj/JSONSlice                 |       11470.00 |            1728 |                        35 |                          13.67x |
 
 ![Complex query benchmark (ns/op)](assets/bench_chart_complex.svg)
 
