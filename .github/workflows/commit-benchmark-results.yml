@@ -21,10 +21,11 @@ jobs:
         id: pr
         env:
           WORKFLOW_RUN_PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
+          REPOSITORY_ID: ${{ github.event.repository.id }}
         run: |
-          pr_json="$(jq -cer --arg repository "$GITHUB_REPOSITORY" '
+          pr_json="$(jq -cer --arg repository_id "$REPOSITORY_ID" '
             (if type == "array" then . else [] end)
-            | map(select(.head.repo.full_name == $repository))
+            | map(select((.head.repo.id | tostring) == $repository_id))
             | first // empty
           ' <<< "$WORKFLOW_RUN_PULL_REQUESTS")" || {
             echo "No same-repository PR found; skipping generated commit."
