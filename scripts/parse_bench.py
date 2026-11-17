@@ -17,15 +17,14 @@ Outputs (written to assets/):
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
-import json
 from pathlib import Path
-from typing import Dict, List
-from tabulate import tabulate
+
 import pygal
 from pygal.style import Style
-
+from tabulate import tabulate
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
@@ -40,13 +39,13 @@ class Bench:
     allocs_per_op: int
 
 
-def load_libraries() -> List[Dict[str, str]]:
+def load_libraries() -> list[dict[str, str]]:
     path = ASSETS / "libraries.json"
     if not path.exists():
         raise FileNotFoundError(f"Missing libraries definition file: {path}")
     data = json.loads(path.read_text())
 
-    libs: List[Dict[str, str]] = []
+    libs: list[dict[str, str]] = []
     for item in data:
         id = str(item.get("id", "")).strip()
         name = str(item.get("name", "")).strip()
@@ -57,7 +56,7 @@ def load_libraries() -> List[Dict[str, str]]:
     return libs
 
 
-LIBRARIES: List[Dict[str, str]] = load_libraries()
+LIBRARIES: list[dict[str, str]] = load_libraries()
 DISPLAY_NAME = {lib["id"]: lib["name"] for lib in LIBRARIES}
 
 
@@ -67,7 +66,7 @@ LINE_RE = re.compile(
 
 
 def render_library_list(out_path: Path) -> None:
-    lines: List[str] = []
+    lines: list[str] = []
     for lib in LIBRARIES:
         name = lib["name"]
         url = lib.get("url", "").strip()
@@ -79,8 +78,8 @@ def render_library_list(out_path: Path) -> None:
     out_path.write_text("\n".join(lines))
 
 
-def parse_result(path: Path) -> Dict[str, Bench]:
-    benches: Dict[str, Bench] = {}
+def parse_result(path: Path) -> dict[str, Bench]:
+    benches: dict[str, Bench] = {}
     if not path.exists():
         return benches
     for line in path.read_text().splitlines():
@@ -96,7 +95,7 @@ def parse_result(path: Path) -> Dict[str, Bench]:
     return benches
 
 
-def render_perf_table(benches: Dict[str, Bench], out_path: Path) -> None:
+def render_perf_table(benches: dict[str, Bench], out_path: Path) -> None:
     if not benches:
         out_path.write_text("_No results found._\n")
         return
@@ -112,7 +111,7 @@ def render_perf_table(benches: Dict[str, Bench], out_path: Path) -> None:
         "Allocations (allocs/op)",
         "Relative speed (fastest = 1x)",
     ]
-    rows: List[List[str]] = []
+    rows: list[list[str]] = []
     for i, b in enumerate(sorted_items, start=1):
         disp = DISPLAY_NAME.get(b.name, b.name)
         rel = b.ns_per_op / fastest if fastest > 0 else 0.0
@@ -139,10 +138,10 @@ def render_perf_table(benches: Dict[str, Bench], out_path: Path) -> None:
 
 
 def render_support_matrix(
-    simple: Dict[str, Bench], complex_: Dict[str, Bench], out_path: Path
+    simple: dict[str, Bench], complex_: dict[str, Bench], out_path: Path
 ) -> None:
     header = ["Library", "Simple query", "Complex query"]
-    rows: List[List[str]] = []
+    rows: list[list[str]] = []
     for lib in LIBRARIES:
         key = lib["id"]
         disp = lib["name"]
@@ -154,7 +153,7 @@ def render_support_matrix(
 
 
 def render_compatibility_snippets(
-    simple: Dict[str, Bench], complex_: Dict[str, Bench], assets_dir: Path
+    simple: dict[str, Bench], complex_: dict[str, Bench], assets_dir: Path
 ) -> None:
     """Generate compatibility text snippets for use in templates."""
     total_libs = len(LIBRARIES)
@@ -190,7 +189,7 @@ _PALETTE = [
 COLOR_MAP = {lib["id"]: _PALETTE[i % len(_PALETTE)] for i, lib in enumerate(LIBRARIES)}
 
 
-def render_svg_bar_chart(benches: Dict[str, Bench], out_path: Path) -> None:
+def render_svg_bar_chart(benches: dict[str, Bench], out_path: Path) -> None:
     if not benches:
         out_path.write_text(
             _svg_wrap(
@@ -241,7 +240,7 @@ def render_svg_bar_chart(benches: Dict[str, Bench], out_path: Path) -> None:
     chart.render_to_file(str(out_path))
 
 
-def _svg_wrap(width: int, height: int, elements: List[str]) -> str:
+def _svg_wrap(width: int, height: int, elements: list[str]) -> str:
     bg = f'<rect x="0" y="0" width="{width}" height="{height}" fill="#ffffff" />'
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">'
