@@ -6,19 +6,32 @@ on:
       - 'go.mod'
       - 'go.sum'
       - '**.go'
+      - 'scripts/**'
+      - 'assets/README.t'
+      - 'assets/libraries.json'
       - '.github/workflows/*.yml'
 
 jobs:
   build:
-    permissions: write-all
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Install requirements
-        run: pip install jinjanator tabulate pygal
+      - name: Set up uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+          cache-dependency-glob: scripts/uv.lock
+
+      - name: Install Python requirements
+        run: |
+          uv python install 3.13
+          uv sync --project scripts --locked
 
       - name: Set up Go
         uses: actions/setup-go@v7
@@ -37,27 +50,24 @@ jobs:
           go test -benchmem -bench Benchmark2 | tee benchmark_recursiveDescentWithFilter_test.result.txt
 
       - name: Build visual summaries
-        run: python3 scripts/parse_bench.py
-
-      - name: Print generated tables to log
-        run: |
-          echo '--- Libraries ---'
-          cat assets/libraries.md || true
-          echo
-          echo '--- Bench table (Simple) ---'
-          cat assets/bench_table_simple.md || true
-          echo
-          echo '--- Bench table (Complex) ---'
-          cat assets/bench_table_complex.md || true
-          echo
-          echo '--- Capability matrix ---'
-          cat assets/support_matrix.md || true
+        run: uv run --project scripts python scripts/parse_bench.py
 
       - name: Update README
-        run: jinjanate --output-file README.md assets/README.t
+        run: uv run --project scripts jinjanate --output-file README.md assets/README.t
 
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+      - name: Upload generated README and benchmark artifacts
+        uses: actions/upload-artifact@v4
         with:
-          add: 'README.md assets/bench_chart_simple.svg assets/bench_chart_complex.svg'
-          message: 'update README for ${{ github.sha }}'
+          name: benchmark-results
+          path: |
+            README.md
+            assets/libraries.md
+            assets/bench_table_simple.md
+            assets/bench_table_complex.md
+            assets/support_matrix.md
+            assets/compat_simple.txt
+            assets/compat_complex.txt
+            assets/bench_chart_simple.svg
+            assets/bench_chart_complex.svg
+            benchmark_*.result.txt
+          if-no-files-found: error

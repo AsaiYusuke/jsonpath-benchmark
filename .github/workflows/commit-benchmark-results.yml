@@ -1,0 +1,89 @@
+name: Commit benchmark results
+
+on:
+  workflow_run:
+    workflows: ["Benchmark JSONPath"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  commit:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve same-repository PR
+        id: pr
+        env:
+          WORKFLOW_RUN_PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
+        run: |
+          pr_json="$(jq -cer --arg repository "$GITHUB_REPOSITORY" '
+            (if type == "array" then . else [] end)
+            | map(select(.head.repo.full_name == $repository))
+            | first // empty
+          ' <<< "$WORKFLOW_RUN_PULL_REQUESTS")" || {
+            echo "No same-repository PR found; skipping generated commit."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          }
+
+          echo "head_sha=$(jq -er '.head.sha | strings | select(length > 0)' <<< "$pr_json")" >> "$GITHUB_OUTPUT"
+          echo "head_ref=$(jq -er '.head.ref | strings | select(length > 0)' <<< "$pr_json")" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Download generated artifacts
+        if: steps.pr.outputs.skip != 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: benchmark-results
+          path: generated
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Check out the PR head
+        if: steps.pr.outputs.skip != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.pr.outputs.head_sha }}
+          fetch-depth: 0
+
+      - name: Commit generated README and charts
+        if: steps.pr.outputs.skip != 'true'
+        env:
+          PR_HEAD_BRANCH: ${{ steps.pr.outputs.head_ref }}
+          EXPECTED_HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
+        run: |
+          remote_head="$(git ls-remote --heads origin "refs/heads/${PR_HEAD_BRANCH}" | cut -f1)"
+          if [ "$remote_head" != "$EXPECTED_HEAD_SHA" ]; then
+            echo "PR head advanced since the benchmark run; skipping stale artifacts."
+            exit 0
+          fi
+
+          cp generated/README.md README.md
+          cp generated/assets/bench_chart_simple.svg assets/bench_chart_simple.svg
+          cp generated/assets/bench_chart_complex.svg assets/bench_chart_complex.svg
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- README.md assets/bench_chart_simple.svg assets/bench_chart_complex.svg
+
+          if git diff --cached --quiet; then
+            echo "Generated README and charts are unchanged."
+            exit 0
+          fi
+
+          git commit -m "Update README benchmark results"
+          if ! git push origin "HEAD:refs/heads/${PR_HEAD_BRANCH}"; then
+            remote_head="$(git ls-remote --heads origin "refs/heads/${PR_HEAD_BRANCH}" | cut -f1)"
+            if [ "$remote_head" != "$EXPECTED_HEAD_SHA" ]; then
+              echo "PR head advanced during push; generated artifacts were not applied."
+              exit 0
+            fi
+            echo "Push failed although the PR head is unchanged." >&2
+            exit 1
+          fi
